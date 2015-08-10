@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/pages/layout/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="headerTitle">Cadastro Pessoa</ui:define>
+
+	<ui:define name="centerLayout">
+		<h:messages infoClass="alert alert-success form-control"
+			warnClass="alert alert-warning" errorClass="alert alert-danger"
+			fatalClass="alert alert-danger" globalOnly="true" />
+
+		<h:form class="form-horizontal" role="cadastroPessoa">
+			<div class="form-group form-group-sm">
+				<h:outputLabel for="inputNome"
+					styleClass="col-xs-offset-2 col-xs-2 control-label" value="Nome" />
+				<div class="col-xs-4">
+					<h:inputText styleClass="form-control"
+						value="#{pessoaBean.pessoaCadastro.nome}" id="inputNome"
+						required="true" requiredMessage="Nome obrigatório!" maxlength="80" />
+				</div>
+				<div class="col-xs-4">
+					<h:message for="inputNome"
+						errorClass="alert-lateral alert-danger form-control" />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<h:outputLabel for="inputEmail"
+					styleClass="col-xs-offset-2 col-xs-2 control-label" value="Email" />
+				<div class="col-xs-4">
+					<h:inputText styleClass="form-control"
+						value="#{pessoaBean.pessoaCadastro.email}" id="inputEmail"
+						required="true" requiredMessage="Email obrigatório!"
+						maxlength="50" />
+				</div>
+				<div class="col-xs-4">
+					<h:message for="inputEmail"
+						errorClass="alert-lateral alert-danger form-control" />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<h:outputLabel for="inputPassword"
+					styleClass="col-xs-offset-2 col-xs-2 control-label"
+					value="Password" />
+				<div class="col-xs-4">
+					<h:inputSecret styleClass="form-control"
+						value="#{pessoaBean.pessoaCadastro.senha}" id="inputPassword"
+						maxlength="10" required="true"
+						requiredMessage="Senha obrigatória!" />
+				</div>
+				<div class="col-xs-4">
+					<h:message for="inputPassword"
+						errorClass="alert-lateral alert-danger form-control" />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<h:outputLabel for="inputPermissao"
+					styleClass="col-xs-offset-2 col-xs-2 control-label"
+					value="Tipo Permissão" />
+				<div class="col-xs-4">
+					<h:selectOneMenu id="inputPermissao" styleClass="form-control"
+						value="#{pessoaBean.pessoaCadastro.tipoPermissao}">
+						<f:selectItems value="#{pessoaBean.tiposPermissao}" var="tipo"
+							itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+			<br></br>
+
+			<div class="form-group">
+				<div class="col-xs-offset-4 col-xs-2">
+					<h:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+						value="Cadastrar" action="#{pessoaBean.cadastrar}" />
+				</div>
+				<div class="col-xs-2">
+					<h:button styleClass="btn btn-warning btn-block btn-sm"
+						value="Voltar" outcome="/pages/login" />
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<message-bundle>messages</message-bundle>
+		<resource-bundle>
+			<base-name>labels</base-name>
+			<var>label</var>
+		</resource-bundle>
+	</application>
+
+	<lifecycle>
+		<phase-listener>com.poc.listeners.LifeCyclePhaseListener</phase-listener>
+	</lifecycle>
+	
+	<factory>
+      <exception-handler-factory>
+        com.poc.listeners.CustomExceptionHandlerFactory
+      </exception-handler-factory>
+    </factory>
+    
+    <navigation-rule>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/pages/index.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+    <navigation-rule>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/pages/comum/error.xhtml</to-view-id>
+			<redirect/>			
+		</navigation-case>		
+	</navigation-rule>
+</faces-config>

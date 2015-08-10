@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/pages/layout/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="headerLayout">
+		<ui:include src="/pages/fragmentos/menuPadrao.xhtml">
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="headerTitle">Pessoas</ui:define>
+
+	<ui:define name="centerLayout">
+		<p:growl id="growl" showDetail="true" />
+
+		<h:messages id="msg1" infoClass="alert alert-success form-control"
+			warnClass="alert alert-warning" errorClass="alert alert-danger"
+			fatalClass="alert alert-danger" globalOnly="true" />
+
+		<h:form id="formPessoa" class="form-horizontal" role="cadastroPessoa">
+
+			<p:dataTable id="tabelaPessoas" var="pessoa" 
+				value="#{pessoaBean.listaPessoas}" rows="10" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{pessoa.email}" />
+				</p:column>
+
+				<p:column headerText="Editar" style="width:80px;text-align: center">
+					<p:commandButton update=":formPessoaDlg:pessoaDetail"
+						oncomplete="PF('pessoaDialog').show()" icon="ui-icon-document"
+						title="Editar">
+						<f:setPropertyActionListener value="#{pessoa}"
+							target="#{pessoaBean.pessoaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Excluir" style="width:80px;text-align: center">
+					<p:commandButton update=":formPessoa:tabelaPessoas"
+						icon="ui-icon-close" title="Excluir"
+						action="#{pessoaBean.excluirPessoaSelecionada}">
+						<f:setPropertyActionListener value="#{pessoa}"
+							target="#{pessoaBean.pessoaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+		<p:dialog header="Info Pessoa" widgetVar="pessoaDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="400px">
+			<h:form id="formPessoaDlg" class="form-horizontal"
+				role="cadastroPessoa">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="pessoaDetail">
+					<div class="form-horizontal">
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputNomeDlg"
+								styleClass="col-xs-3 control-label" value="Nome" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{pessoaBean.pessoaSelecionada.nome}" id="inputNomeDlg"
+									required="true" requiredMessage="Nome obrigatório!"
+									maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmailDlg"
+								styleClass="col-xs-3 control-label" value="Email" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{pessoaBean.pessoaSelecionada.email}"
+									id="inputEmailDlg" required="true"
+									requiredMessage="Email obrigatório!" maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<div class="col-xs-offset-2 col-xs-4">
+								<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+									value="Salvar" action="#{pessoaBean.alterarPessoaSelecionada}"
+									update=":formPessoa:tabelaPessoas :growl"
+									oncomplete="PF('pessoaDialog').hide()">
+								</p:commandButton>
+							</div>
+							<div class="col-xs-4">
+								<h:button styleClass="btn btn-success btn-block btn-sm"
+									value="Cancelar" />
+							</div>
+						</div>
+					</div>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

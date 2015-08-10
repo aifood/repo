@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+	<title><ui:insert name="tituloPagina">
+			<h:outputText value="#{label.titulo}" />
+		</ui:insert></title>
+
+	<!-- CSS -->
+	<!-- Bootstrap minificado comentado, para aplicar as alterações feitas no css normal
+	<h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css" /> -->
+	<!-- 	Referencia ao css do bootstrap sem usar o resources do jsf 2 -->
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/bootstrap/css/bootstrap.css">
+	</link>
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/default/css/poc.css"></link>
+
+	<!-- 	Referencia aos css's usando o resources do jsf 2 -->
+	<!-- 	<h:outputStylesheet library="bootstrap" name="css/bootstrap.css" /> -->
+	<!-- 	<h:outputStylesheet library="default" name="css/poc.css" /> -->
+
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<noscript>
+		<div>
+			<p>Essa aplicação usa recursos de Scripts Ativos. Habilite os
+				Scripts Ativos (Javascript...) no seu Browser!!</p>
+		</div>
+	</noscript>
+
+	<!-- Favicon do Bootstrap :P-->
+	<link rel="shortcut icon"
+		href="http://http://getbootstrap.com/favicon.ico"></link>
+</h:head>
+
+<h:body>
+
+	<f:view locale="pt_BR">
+
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">POC</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<!-- Conteudo a ser personalizado -->
+				<div class="collapse navbar-collapse">
+					<ui:insert name="headerLayout"></ui:insert>
+				</div>
+
+			</div>
+		</div>
+
+		<ui:insert name="bodyLayout">
+			<div class="container-fluid">
+				<div class="col-xs-2">
+					<ui:insert name="leftLayout"></ui:insert>
+				</div>
+
+				<div class="col-xs-8 ">
+					<div class="page-header">
+						<h3>
+							<ui:insert name="headerTitle">Header Title</ui:insert>
+						</h3>
+					</div>
+					<ui:insert name="centerLayout"></ui:insert>
+				</div>
+
+				<div class="col-xs-2">
+					<ui:insert name="rightLayout"></ui:insert>
+				</div>
+			</div>
+		</ui:insert>
+
+		<div class="footer">
+			<div class="container">
+				<ui:insert name="footerLayout">
+					<div class="text-center">
+						<p>
+							<em>conhecereis a verdade, e a verdade vos libertará.</em>
+						</p>
+						<p class="small">
+							Jo 8,32 - <cite title="Bíblia Sagrada">Bíblia Sagrada</cite>
+						</p>
+					</div>
+				</ui:insert>
+			</div>
+		</div>
+
+	</f:view>
+	<!-- Scripts -->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- 	<script -->
+	<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+	<!-- 	jquery do Primefaces, nao remover para funcionar com o bootstrap -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="bootstrap" name="js/bootstrap.min.js" />
+<!-- 	<script> -->
+<!--  		$("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"); -->
+<!--  		$("span").removeClass("ui-button-text ui-c"); -->
+<!-- 	</script> -->
+</h:body>
+</html>

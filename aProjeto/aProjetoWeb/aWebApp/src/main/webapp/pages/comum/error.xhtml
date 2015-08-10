@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/pages/layout/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:define name="headerTitle">Erro</ui:define>
+
+	<ui:define name="centerLayout">
+
+		<div class="text-danger ">
+			<h3>
+				<span class="glyphicon glyphicon-warning-sign"></span> <span>
+					<h:outputText escape="false" value="#{label['error_page.content']}" />
+				</span>
+			</h3>
+		</div>
+
+		<br> </br>
+
+		<div>
+			<p class="text-warning small">Error details:</p>
+			<p class="text-danger small">
+				<h:outputText value="#{flash.keep.errorMsg}" />
+			</p>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:form id="formMenu">
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown">Cadastrar <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#{request.contextPath}/pages/pessoa/lista.xhtml">Pessoa</a></li>
+					<li><a href="#">Lançamento</a></li>
+					<li><a href="#">Categoria</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Conta</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Cartão</a></li>
+				</ul></li>
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown" style="margin-left: -15px;"><a href="#"
+				class="dropdown-toggle navbar-link text-primary"
+				data-toggle="dropdown"> #{loginBean.sessionUser.nome} <span class="caret"></span></a>
+
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Preferências</a></li>
+					<li class="divider"></li>
+					<li><h:commandLink value="Sair" action="#{loginBean.logout}" />
+					</li>
+				</ul></li>
+		</ul>
+
+		<span class="navbar-text navbar-right">Signed in as</span>
+	</h:form>
+
+</ui:composition>

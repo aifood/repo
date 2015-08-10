@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd" version="2.1">
+
+<!-- Pessoas -->
+	<named-query name="Pessoa.findAllByParameters">
+		<query>
+			select o from Pessoa o 
+			where (:id is NULL or o.id = :id) 
+				and (:nome is NULL or upper(o.nome) like :nome)
+				and (:email is NULL or upper(o.email) like :email) 
+				and (:senha is NULL or upper(o.senha) like :senha) 
+				and (:tipoPermissao is NULL or o.tipoPermissao = :tipoPermissao) 
+			ORDER BY o.nome 
+		</query>
+	</named-query>	
+	
+	<named-query name="Pessoa.findQuantityAllByParameters">
+		<query>
+			select count(o.id) from Pessoa o
+			where (:id is NULL or o.id = :id)
+				and (:nome is NULL or upper(o.nome) like :nome)
+				and (:email is NULL or upper(o.email) like :email)
+				and (:senha is NULL or upper(o.senha) like :senha)
+				and (:tipoPermissao is NULL or o.tipoPermissao = :tipoPermissao)
+			ORDER BY o.nome
+		</query>
+	</named-query>	
+	
+	<named-query name="Pessoa.findByTipoPermissao">
+		<query>
+			select o from Pessoa o
+			where o.tipoPermissao = :tipoPermissao
+		</query>
+	</named-query>
+	
+	<named-query name="Pessoa.findByEmailESenha">
+		<query>
+			select o from Pessoa o
+			where o.email = :email
+				and o.senha = :senha
+		</query>
+	</named-query>
+	
+
+	<!-- Modelos de Carta -->
+	<!--
+	<named-query name="ModeloCarta.obterModeloCartaPorVersao">
+		<query>
+			SELECT o 
+			FROM ModeloCarta o 
+				WHERE (o.nuVersao = :nuVersao)
+					AND (upper(o.sigla) LIKE :sigla)		
+		</query>
+	</named-query>
+
+	<named-query name="ModeloCarta.obterModeloCartaUltimaVersao">
+		<query>
+			SELECT o1 FROM ModeloCarta o1 
+				WHERE (upper(o1.sigla) LIKE :sigla) AND o1.nuVersao =
+				(SELECT MAX(o2.nuVersao) FROM ModeloCarta o2 WHERE o1.sigla = o2.sigla and o2.inAtivo = true)
+				AND o1.inAtivo = true
+		</query>
+	</named-query>
+
+	<named-query name="ModeloCarta.obterModelosCartaUltimaVersao">
+		<query>
+			SELECT o1 FROM ModeloCarta o1 
+				WHERE (o1.sistema = :sistema) AND o1.nuVersao =
+				(SELECT MAX(o2.nuVersao) FROM ModeloCarta o2 WHERE o1.sigla = o2.sigla and o2.inAtivo = true)
+				AND o1.inAtivo = true
+		</query>
+	</named-query>
+
+	<named-query name="ModeloCarta.verificarSiglaExistente">
+		<query>
+			SELECT COUNT(o) FROM ModeloCarta o WHERE o.sigla = :sigla;
+		</query>
+	</named-query>	
+
+	<named-query name="ImagemCarta.obterImagemCarta">
+		<query>
+			SELECT o 
+			FROM ImagemCarta o 
+				WHERE(upper(o.sigla) LIKE :sigla)		
+		</query>
+	</named-query>
+
+	<named-query name="ImagemCarta.verificarSiglaExistente">
+		<query>
+			SELECT COUNT(o) FROM ImagemCarta o WHERE o.sigla = :sigla;
+		</query>
+	</named-query>		
+
+	<named-query name="ImagemCarta.obterArquivoImagemCarta">
+		<query>
+			SELECT o.imagem FROM ImagemCarta o WHERE o.id = :idImagem
+		</query>
+	</named-query>
+	
+	<named-query name="ModeloCarta.obterNumeroUltimaVersaoAtiva">
+		<query>
+			SELECT max(o.nuVersao) FROM ModeloCarta o WHERE o.sigla = :sigla AND o.inAtivo = 1
+		</query>
+	</named-query>
+	
+	<named-query name="ModeloCarta.obterNumeroUltimaVersao">
+		<query>
+			SELECT max(o.nuVersao) FROM ModeloCarta o WHERE o.sigla = :sigla
+		</query>
+	</named-query>			
+	
+	<named-query name="ModeloCarta.obterModelosCartaAtivos">
+		<query>
+			SELECT o FROM ModeloCarta o WHERE o.inAtivo = true
+		</query>
+	</named-query>	
+	
+	<named-native-query name="ModeloCarta.obterModelosCartaImagem"
+		result-class="br.gov.dataprev.gercor.entity.carta.ModeloCarta">
+		<query>	select m.ID_MODELO_CARTA, m.ID_SISTEMA_ACESSO, m.CS_MODELO_CARTA, m.IN_ENVIO_AR, m.NU_VERSAO, m.DT_VERSAO, m.NM_MODELO, m.TE_DESCRICAO,
+		 	m.DO_MODELO_CARTA_BIN, m.DO_MODELO_CARTA_PDF, m.DO_MODELO_CARTA, m.CS_TAMANHO_PAPEL, m.SG_MODELO, m.IN_ATIVO, m.NM_LOGIN_USUARIO 
+		 	from modelos_cartas m, imagens_modelos_cartas im, imagens_cartas ic 
+		 	where ic.id_imagem_carta = ? and ic.id_imagem_carta = im.id_imagem_carta and im.id_modelo_carta = m.id_modelo_carta</query>
+	</named-native-query>	
+	
+	<named-native-query name="ImagemCarta.obterImagensModeloCarta"
+		result-class="br.gov.dataprev.gercor.entity.carta.ImagemCarta">
+		<query>select ic.ID_IMAGEM_CARTA, ic.DO_IMAGEM, ic.NM_IMAGEM, ic.SG_IMAGEM, ic.TE_DESCRICAO, ic.NM_LOGIN_USUARIO, ic.DT_ULTIMA_ALTERACAO, ic.CS_IMAGEM
+		 	from modelos_cartas m, imagens_modelos_cartas im, imagens_cartas ic
+			where m.id_modelo_carta = ? and m.id_modelo_carta = im.id_modelo_carta and im.id_imagem_carta = ic.id_imagem_carta</query>
+	</named-native-query>	
+	
+	<named-native-query name="ImagemCarta.obterImagensModeloCartaPorSigla"
+		result-class="br.gov.dataprev.gercor.entity.carta.ImagemCarta">
+		<query>select ic.ID_IMAGEM_CARTA, ic.DO_IMAGEM, ic.NM_IMAGEM, ic.SG_IMAGEM, ic.TE_DESCRICAO, ic.NM_LOGIN_USUARIO, ic.DT_ULTIMA_ALTERACAO, ic.CS_IMAGEM
+		 	from modelos_cartas m, imagens_modelos_cartas im, imagens_cartas ic
+			where m.sg_modelo = ? and m.id_modelo_carta = im.id_modelo_carta and im.id_imagem_carta = ic.id_imagem_carta</query>
+	</named-native-query>	
+	
+	 -->
+		
+</entity-mappings>

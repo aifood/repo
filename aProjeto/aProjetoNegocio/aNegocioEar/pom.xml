@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>aProjetoNegocio</artifactId>
+		<groupId>com.poc.projeto</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>aNegocioEar</artifactId>
+	<packaging>ear</packaging>
+	<name>Negocio - EAR</name>
+
+	<build>
+		<finalName>${project.parent.artifactId}</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<modules>
+						<ejbModule>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>aNegocioEjb</artifactId>
+							<bundleFileName>aNegocioEjb.jar</bundleFileName>
+						</ejbModule>
+					</modules>
+					<!-- <generateApplicationXml>false</generateApplicationXml> -->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-ear-plugin</artifactId>
+										<versionRange>[2.4.2,)</versionRange>
+										<goals>
+											<goal>generate-application-xml</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>aNegocioEjb</artifactId>
+			<version>${project.parent.version}</version>
+			<type>ejb</type>
+		</dependency>
+	</dependencies>
+
+</project>
