@@ -21,11 +21,11 @@
 		<org.hibernate.version>4.2.0.Final</org.hibernate.version>
 		
 		<!-- Deploy Glassfish -->
-		<local.glassfish.home>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</local.glassfish.home>
+		<local.glassfish.home>C:\\Program Files\\glassfish-4.1\\glassfish</local.glassfish.home>
 		<local.glassfish.user>admin</local.glassfish.user>
 		<local.glassfish.domain>domain1</local.glassfish.domain>
 		<local.glassfish.passfile>
-			${local.glassfish.home}\\domains\\${local.glassfish.domain}\\config\\domain-passwords
+			C:\\ferramentas\dominio\\domains\\${local.glassfish.domain}\\config\\domain-passwords
 		</local.glassfish.passfile>
 		
 		<!-- Deploy Weblogic -->
@@ -130,12 +130,11 @@
 <!-- 					<inherited>false</inherited> -->
 
 					<configuration>
-<!-- 						<glassfishDirectory>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</glassfishDirectory>						 -->
-						<glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
-<!-- 						<user>admin</user> -->
-						<user>${local.glassfish.user}</user>
-<!-- 						<adminPassword>admin</adminPassword> -->
-						<passwordFile>${local.glassfish.passfile}</passwordFile>
+						<glassfishDirectory>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</glassfishDirectory>						
+						<user>admin</user>
+						<adminPassword>admin</adminPassword>
+<!-- 						<user>${local.glassfish.user}</user> -->
+<!-- 						<passwordFile>${local.glassfish.passfile}</passwordFile> -->
 						<autoCreate>true</autoCreate>
 						<debug>true</debug>
 						<echo>true</echo>
@@ -143,7 +142,7 @@
 						<domain>
 							<name>domain1</name>
 							<adminPort>4848</adminPort>
-							<httpPort>8001</httpPort>
+							<httpPort>8900</httpPort>
 							<httpsPort>8901</httpsPort>
 							<iiopPort>3700</iiopPort>
 							<jmsPort>7676</jmsPort>
