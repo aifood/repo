@@ -2,6 +2,17 @@
 ## Eclipse
 #################
 
+# Directories #
+/build/
+/bin/
+target/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+
 *.pydevproject
 .project
 .metadata
