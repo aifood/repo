@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +24,7 @@ import com.poc.util.ApplicationResources;
 import com.poc.util.FacesUtil;
 import com.poc.util.SessionManager;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class PessoaBean extends BaseBean implements Serializable {
 
@@ -36,7 +38,7 @@ public class PessoaBean extends BaseBean implements Serializable {
 	//Utilizada na view "lista"
 	private Pessoa pessoaSelecionada;
 
-	@EJB
+	@Inject
 	private PessoaService pessoaService;
 
 	public String cadastrar() {

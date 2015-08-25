@@ -17,13 +17,13 @@
 		<h:form class="form-horizontal" role="cadastroPessoa">
 			<div class="form-group form-group-sm">
 				<h:outputLabel for="inputNome"
-					styleClass="col-xs-offset-2 col-xs-2 control-label" value="Nome" />
+					styleClass="col-xs-offset-1 col-xs-2 control-label" value="Nome" />
 				<div class="col-xs-4">
 					<h:inputText styleClass="form-control"
 						value="#{pessoaBean.pessoaCadastro.nome}" id="inputNome"
 						required="true" requiredMessage="Nome obrigatório!" maxlength="80" />
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-5">
 					<h:message for="inputNome"
 						errorClass="alert-lateral alert-danger form-control" />
 				</div>
@@ -31,14 +31,14 @@
 
 			<div class="form-group form-group-sm">
 				<h:outputLabel for="inputEmail"
-					styleClass="col-xs-offset-2 col-xs-2 control-label" value="Email" />
+					styleClass="col-xs-offset-1 col-xs-2 control-label" value="Email" />
 				<div class="col-xs-4">
 					<h:inputText styleClass="form-control"
 						value="#{pessoaBean.pessoaCadastro.email}" id="inputEmail"
 						required="true" requiredMessage="Email obrigatório!"
 						maxlength="50" />
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-5">
 					<h:message for="inputEmail"
 						errorClass="alert-lateral alert-danger form-control" />
 				</div>
@@ -46,7 +46,7 @@
 
 			<div class="form-group form-group-sm">
 				<h:outputLabel for="inputPassword"
-					styleClass="col-xs-offset-2 col-xs-2 control-label"
+					styleClass="col-xs-offset-1 col-xs-2 control-label"
 					value="Password" />
 				<div class="col-xs-4">
 					<h:inputSecret styleClass="form-control"
@@ -54,7 +54,7 @@
 						maxlength="10" required="true"
 						requiredMessage="Senha obrigatória!" />
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-5">
 					<h:message for="inputPassword"
 						errorClass="alert-lateral alert-danger form-control" />
 				</div>
@@ -62,7 +62,7 @@
 
 			<div class="form-group form-group-sm">
 				<h:outputLabel for="inputPermissao"
-					styleClass="col-xs-offset-2 col-xs-2 control-label"
+					styleClass="col-xs-offset-1 col-xs-2 control-label"
 					value="Tipo Permissão" />
 				<div class="col-xs-4">
 					<h:selectOneMenu id="inputPermissao" styleClass="form-control"
@@ -76,7 +76,7 @@
 			<br></br>
 
 			<div class="form-group">
-				<div class="col-xs-offset-4 col-xs-2">
+				<div class="col-xs-offset-3 col-xs-2">
 					<h:commandButton styleClass="btn btn-primary btn-block  btn-sm"
 						value="Cadastrar" action="#{pessoaBean.cadastrar}" />
 				</div>

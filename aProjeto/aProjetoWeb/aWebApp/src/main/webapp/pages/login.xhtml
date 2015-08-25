@@ -16,13 +16,13 @@
 		<h:form class="form-horizontal" role="form">
 			<div class="form-group form-group-sm">
 				<h:outputLabel for="inputEmailLogin"
-					styleClass="col-xs-offset-2 col-xs-2 control-label" value="Email" />
+					styleClass="col-xs-offset-1 col-xs-2 control-label" value="Email" />
 				<div class="col-xs-4">
 					<h:inputText styleClass="form-control"
 						value="#{loginBean.pessoaLogIn.email}" id="inputEmailLogin"
 						required="true" requiredMessage="Email obrigatório!" />
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-5">
 					<h:message for="inputEmailLogin"
 						errorClass="alert-lateral alert-danger form-control" />
 				</div>
@@ -30,21 +30,21 @@
 
 			<div class="form-group form-group-sm">
 				<h:outputLabel for="inputEmailPassword"
-					styleClass="col-xs-offset-2 col-xs-2 control-label"
+					styleClass="col-xs-offset-1 col-xs-2 control-label"
 					value="Password" />
 				<div class="col-xs-4">
-					<h:inputText styleClass="form-control"
+					<h:inputSecret styleClass="form-control"
 						value="#{loginBean.pessoaLogIn.senha}" id="inputEmailPassword"
 						required="true" requiredMessage="Senha obrigatória!" />
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-5">
 					<h:message for="inputEmailPassword"
 						errorClass="alert-lateral alert-danger form-control" />
 				</div>
 			</div>
 
 			<div class="form-group form-group-sm">
-				<div class="col-xs-offset-4 col-xs-4">
+				<div class="col-xs-offset-3 col-xs-4">
 					<div class="checkbox">
 						<label><h:selectBooleanCheckbox
 								value="#{loginBean.rememberMe}" /> Remember Me</label>
@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="form-group">
-				<div class="col-xs-offset-4 col-xs-2">
+				<div class="col-xs-offset-3 col-xs-2">
 					<h:commandButton styleClass="btn btn-primary btn-block  btn-sm"
 						value="Entrar" action="#{loginBean.login}" />
 				</div>

@@ -22,11 +22,18 @@
 
 	<dependencies>
 		<!-- Client Ejb -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>${project.groupId}</groupId> -->
+<!-- 			<artifactId>aNegocioClient</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
+		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>aNegocioClient</artifactId>
+			<artifactId>aNegocioEjb</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
 
 		<!-- JSF libs -->
 		<dependency>
