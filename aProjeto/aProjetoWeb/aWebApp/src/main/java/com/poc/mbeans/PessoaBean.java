@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,7 @@ import com.poc.util.SessionManager;
 
 @Named
 @ViewScoped
+@Transactional
 public class PessoaBean extends BaseBean implements Serializable {
 
 	protected final Logger log = LogManager.getLogger(this.getClass());

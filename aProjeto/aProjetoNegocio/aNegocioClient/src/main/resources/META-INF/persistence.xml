@@ -21,7 +21,7 @@
 			<property name="eclipselink.logging.level.sql" value="FINEST"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
 			<property name="eclipselink.weaving" value="static" />
-			<property name="eclipselink.target-database" value="Oracle" />
+			<property name="eclipselink.target-database" value="PostgreSQL" />
 		</properties>
 	</persistence-unit>
 </persistence>

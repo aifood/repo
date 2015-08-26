@@ -4,80 +4,50 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
-//@NamedQueries({
-//	@NamedQuery(name = "Pessoa.findAllByParameters", query = "select o from Pessoa o "
-//			+ " where (:id is NULL or o.id = :id) "
-//			+ " and (:nome is NULL or upper(o.nome) like :nome)"
-//			+ " and (:email is NULL or upper(o.email) like :email) "
-//			+ " and (:senha is NULL or upper(o.senha) like :senha) "
-//			+ " and (:tipoPermissao is NULL or o.tipoPermissao = :tipoPermissao) "
-//			+ " ORDER BY o.nome "),
-//	@NamedQuery(name = "Pessoa.findQuantityAllByParameters", query = "select count(o.id) from Pessoa o "
-//			+ "where (:id is NULL or o.id = :id) "
-//			+ " and (:nome is NULL or upper(o.nome) like :nome) "
-//			+ " and (:email is NULL or upper(o.email) like :email) "
-//			+ " and (:senha is NULL or upper(o.senha) like :senha) "
-//			+ " and (:tipoPermissao is NULL or o.tipoPermissao = :tipoPermissao) "
-//			+ " ORDER BY o.nome "),
-//	@NamedQuery(name = "Pessoa.findByTipoPermissao", query = "select o from Pessoa o "
-//			+ "where o.tipoPermissao = :tipoPermissao ") })
 @Entity
-@Table(name = "PESSOAS")
+@Table(name = "d003_usuario")
 public class Pessoa implements Serializable {
 
 private static final long serialVersionUID = 1L;
 
 @Id
-@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_PESSOA_GENERATOR")
-@SequenceGenerator(name = "ID_PESSOA_GENERATOR", sequenceName = "SQ_PESSOA", allocationSize = 1)
-@Column(name = "ID_PESSOA")
+@Basic(optional = false)
+@NotNull
+@SequenceGenerator(name="D003_USUARIO_GENERATOR", sequenceName="SQ_USUARIO", allocationSize=1)
+@GeneratedValue(strategy = GenerationType.AUTO, generator = "D003_USUARIO_GENERATOR")
+@Column(name = "id_usuario")
 private Long id;
 
-@Column(name = "NM_PESSOA")
+@Column(name = "nome")
 private String nome;
 
-@Column(name = "NM_EMAIL")
+@Column(name = "email")
 private String email;
 
-@Column(name = "NM_SENHA")
+@Column(name = "senha")
 private String senha;
 
-@Column(name = "CS_PERMISSAO")
+@Column(name = "cs_permissao")
 private Integer tipoPermissao;
 
-@Column(name = "DT_ULTIMO_ACESSO")
+@Column(name = "dt_ultimo_acesso")
 @Temporal(TemporalType.TIMESTAMP)
 private Date dataUltimoAcesso;
-
-@ManyToOne
-@JoinColumn(name = "ID_CONTA_PADRAO", referencedColumnName = "ID_CONTA")
-private Conta contaPadrao;
-
-@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-@JoinTable(name = "PESSOAS_CONTAS", joinColumns = { @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTA", referencedColumnName = "ID_CONTA") })
-@OrderBy("nome")
-private List<Conta> contas;
 
 @Transient
 private Set<LoginData> sessionLogins = new HashSet<LoginData>();
@@ -131,22 +101,6 @@ public void setDataUltimoAcesso(Date dataUltimoAcesso) {
 
 public Date getDataUltimoAcesso() {
 	return dataUltimoAcesso;
-}
-
-public Conta getContaPadrao() {
-	return contaPadrao;
-}
-
-public void setContaPadrao(Conta contaPadrao) {
-	this.contaPadrao = contaPadrao;
-}
-
-public List<Conta> getContas() {
-	return contas;
-}
-
-public void setContas(List<Conta> contas) {
-	this.contas = contas;
 }
 
 public void setSessionLogins(Set<LoginData> sessionLogins) {
