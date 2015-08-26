@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +21,7 @@ import com.poc.util.ApplicationResources;
 import com.poc.util.FacesUtil;
 import com.poc.util.SessionManager;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class LoginBean extends BaseBean implements Serializable {
 
@@ -32,7 +32,8 @@ public class LoginBean extends BaseBean implements Serializable {
 	private Pessoa pessoaLogIn = new Pessoa();
 	private Boolean rememberMe;
 
-	@EJB
+//	@EJB
+	@Inject
 	private PessoaService pessoaService;
 
 	public String login() {

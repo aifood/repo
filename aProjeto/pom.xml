@@ -134,8 +134,8 @@
 						<glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
 <!-- 						<user>admin</user> -->
 						<user>${local.glassfish.user}</user>
-<!-- 						<adminPassword>admin</adminPassword> -->
-						<passwordFile>${local.glassfish.passfile}</passwordFile>
+						<adminPassword>admin</adminPassword>
+<!-- 						<passwordFile>${local.glassfish.passfile}</passwordFile> -->
 						<autoCreate>true</autoCreate>
 						<debug>true</debug>
 						<echo>true</echo>
@@ -143,7 +143,7 @@
 						<domain>
 							<name>domain1</name>
 							<adminPort>4848</adminPort>
-							<httpPort>8001</httpPort>
+							<httpPort>8081</httpPort>
 							<httpsPort>8901</httpsPort>
 							<iiopPort>3700</iiopPort>
 							<jmsPort>7676</jmsPort>
