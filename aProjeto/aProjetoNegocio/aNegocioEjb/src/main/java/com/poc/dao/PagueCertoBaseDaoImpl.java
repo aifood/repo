@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,7 +16,8 @@ import org.eclipse.persistence.queries.ReportQueryResult;
 
 public abstract class PagueCertoBaseDaoImpl<E> extends AbstractBaseDao<E> implements PagueCertoBaseDao<E> {
 
-	@PersistenceContext//(unitName = "AdminSibePu")
+//	@PersistenceContext//(unitName = "AdminSibePu")
+	@Inject
 	private EntityManager entityManager;
 
 	protected EntityManager getEntityManager() {
