@@ -88,7 +88,7 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-ejb-plugin</artifactId>
 					<configuration>
-						<ejbVersion>3.0</ejbVersion>
+						<ejbVersion>3.1</ejbVersion>
 						<archive>
 							<manifestEntries>
 								<Implementation-Version>${project.version}</Implementation-Version>
@@ -310,14 +310,14 @@
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
-				<version>6.0</version>
+				<version>7.0</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>javax.ejb</groupId>
 				<artifactId>ejb-api</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<scope>compile</scope>
 			</dependency>
 
