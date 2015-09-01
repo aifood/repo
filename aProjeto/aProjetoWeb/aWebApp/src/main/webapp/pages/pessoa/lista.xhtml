@@ -35,7 +35,7 @@
 				<p:column headerText="Email">
 					<h:outputText value="#{pessoa.email}" />
 				</p:column>
-
+				 
 				<p:column headerText="Editar" style="width:80px;text-align: center">
 					<p:commandButton update=":formPessoaDlg:pessoaDetail"
 						oncomplete="PF('pessoaDialog').show()" icon="ui-icon-document"
@@ -55,6 +55,16 @@
 				</p:column>
 
 			</p:dataTable>
+			
+			<div class="form-group">
+				<div class="col-xs-offset-5 col-xs-2">
+					<p:commandButton styleClass="btn btn-primary btn-block  btn-sm" update=":cadastroPessoaForm:pessoaDetailCad"
+						oncomplete="PF('pessoaDialogCad').show()" value="Cadastrar"
+						title="Cadastrar">						
+					</p:commandButton>
+				</div>				
+			</div>
+			
 		</h:form>
 
 		<p:dialog header="Info Pessoa" widgetVar="pessoaDialog" modal="true"
@@ -108,7 +118,93 @@
 				</p:outputPanel>
 			</h:form>
 		</p:dialog>
+		
+		<p:dialog header="Cadastro Pessoa" widgetVar="pessoaDialogCad" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="600px">
+			<h:form id="cadastroPessoaForm" class="form-horizontal"
+				role="cadastroPessoa">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
 
+				<p:outputPanel id="pessoaDetailCad">
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputNome"
+							styleClass="col-xs-offset-1 col-xs-2 control-label" value="Nome" />
+						<div class="col-xs-4">
+							<h:inputText styleClass="form-control"
+								value="#{pessoaBean.pessoaCadastro.nome}" id="inputNome"
+								required="true" requiredMessage="Nome obrigatório!" maxlength="80" />
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputNome"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
+		
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputEmail"
+							styleClass="col-xs-offset-1 col-xs-2 control-label" value="Email" />
+						<div class="col-xs-4">
+							<h:inputText styleClass="form-control"
+								value="#{pessoaBean.pessoaCadastro.email}" id="inputEmail"
+								required="true" requiredMessage="Email obrigatório!"
+								maxlength="50" />
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputEmail"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
+		
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputPassword"
+							styleClass="col-xs-offset-1 col-xs-2 control-label"
+							value="Password" />
+						<div class="col-xs-4">
+							<h:inputSecret styleClass="form-control"
+								value="#{pessoaBean.pessoaCadastro.senha}" id="inputPassword"
+								maxlength="10" required="true"
+								requiredMessage="Senha obrigatória!" />
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputPassword"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
+		
+					<div class="form-group form-group-sm" >
+						<h:outputLabel for="inputPermissao"
+							styleClass="col-xs-offset-1 col-xs-2 control-label"
+							value="Tipo Permissão" rendered="#{loginBean.sessionUserAdm}" />
+						<div class="col-xs-4">
+							<h:selectOneMenu id="inputPermissao" styleClass="form-control"
+								value="#{pessoaBean.pessoaCadastro.tipoPermissao}" rendered="#{loginBean.sessionUserAdm}">
+								<f:selectItems value="#{pessoaBean.tiposPermissao}" var="tipo"
+									itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+							</h:selectOneMenu>
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<div class="col-xs-offset-2 col-xs-4">
+							<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+								value="Salvar" action="#{pessoaBean.cadastrarUsuario}"
+								update=":formPessoa:tabelaPessoas :growl"
+								oncomplete="PF('pessoaDialogCad').hide()">
+							</p:commandButton>
+						</div>
+						<div class="col-xs-4">
+							<h:button styleClass="btn btn-success btn-block btn-sm"
+								value="Cancelar" />
+						</div>
+					</div>
+					
+				</p:outputPanel>
+				
+			</h:form>
+		</p:dialog>		
 	</ui:define>
 
 </ui:composition>

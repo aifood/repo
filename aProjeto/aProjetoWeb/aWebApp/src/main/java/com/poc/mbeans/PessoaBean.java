@@ -64,6 +64,19 @@ public class PessoaBean extends BaseBean implements Serializable {
 		return "index";
 	}
 	
+	public void cadastrarUsuario() {
+
+		//Insere a Pessoa
+		pessoaCadastro.setDataUltimoAcesso(new Date());
+		pessoaService.inserirPessoa(getPessoaCadastro());
+		
+		FacesUtil.adicionarMensagemSucesso(ApplicationResources.PESSOA_SUCESSO_INSERCAO,
+				pessoaCadastro.getNome());
+
+		// Reinicia os valores do objeto, limpando os campos do formulário.
+		pessoaCadastro = new Pessoa();
+	}
+	
 	public List<Pessoa> getListaPessoas() {
 		return pessoaService.getAll();
 	}
@@ -84,6 +97,9 @@ public class PessoaBean extends BaseBean implements Serializable {
 
 	// Get & Set
 	public Pessoa getPessoaCadastro() {
+		if (!isSessionUserAdm()) {
+			pessoaCadastro.setTipoPermissao(TipoPermissao.USUARIO);
+		}
 		return pessoaCadastro;
 	}
 
