@@ -21,7 +21,8 @@
 		<org.hibernate.version>4.2.0.Final</org.hibernate.version>
 		
 		<!-- Deploy Glassfish -->
-		<local.glassfish.home>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</local.glassfish.home>
+	    <!--<local.glassfish.home>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</local.glassfish.home> -->
+	    <local.glassfish.home>C:\\Program Files\\glassfish-4.1\\glassfish</local.glassfish.home>
 		<local.glassfish.user>admin</local.glassfish.user>
 		<local.glassfish.domain>domain1</local.glassfish.domain>
 		<local.glassfish.passfile>

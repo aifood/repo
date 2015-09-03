@@ -4,8 +4,6 @@ package com.poc.service;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import com.poc.entity.Pessoa;
 import com.poc.entity.TipoPermissao;
 

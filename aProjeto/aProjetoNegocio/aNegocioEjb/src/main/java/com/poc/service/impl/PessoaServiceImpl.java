@@ -2,8 +2,6 @@ package com.poc.service.impl;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.logging.log4j.LogManager;
