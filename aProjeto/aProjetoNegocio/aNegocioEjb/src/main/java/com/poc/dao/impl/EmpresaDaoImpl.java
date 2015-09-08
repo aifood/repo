@@ -16,7 +16,7 @@ public class EmpresaDaoImpl extends PagueCertoBaseDaoImpl<Empresa> implements Em
 
 	private Query setarParametrosQuery(Query query, Empresa empresa) {
 
-		query.setParameter("id", empresa.getIdEmpresa());
+		query.setParameter("id", empresa.getId());
 		query.setParameter("nome",
 				(empresa.getNome() != null) && (!empresa.getNome().equals(STRING_VAZIA)) ? "%"
 						+ empresa.getNome().toUpperCase() + "%" : null);

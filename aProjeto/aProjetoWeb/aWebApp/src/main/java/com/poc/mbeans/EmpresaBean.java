@@ -53,7 +53,7 @@ public class EmpresaBean extends BaseBean implements Serializable {
 	}
 	
 	public void excluirEmpresaSelecionada() {
-		empresaService.excluirEmpresa(getEmpresaSelecionada().getIdEmpresa());	    	    
+		empresaService.excluirEmpresa(getEmpresaSelecionada().getId());	    	    
 	}
 	
 	public void alterarEmpresaSelecionada() {

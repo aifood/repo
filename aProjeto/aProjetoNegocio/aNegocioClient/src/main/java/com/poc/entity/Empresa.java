@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
-    @NamedQuery(name = "Empresa.findByIdEmpresa", query = "SELECT e FROM Empresa e WHERE e.idEmpresa = :idEmpresa"),
+    @NamedQuery(name = "Empresa.findByIdEmpresa", query = "SELECT e FROM Empresa e WHERE e.id = :id"),
     @NamedQuery(name = "Empresa.findByNome", query = "SELECT e FROM Empresa e WHERE e.nome = :nome"),
     @NamedQuery(name = "Empresa.findByCnpj", query = "SELECT e FROM Empresa e WHERE e.cnpj = :cnpj"),
     @NamedQuery(name = "Empresa.findByAtiva", query = "SELECT e FROM Empresa e WHERE e.ativa = :ativa"),
@@ -50,7 +50,7 @@ public class Empresa implements Serializable {
     @SequenceGenerator(name="D000_EMPRESA_IDEMPRESA_GENERATOR", sequenceName="SQ_EMPRESA",allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "D000_EMPRESA_IDEMPRESA_GENERATOR")
     @Column(name = "id_empresa")
-    private long idEmpresa;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
@@ -107,12 +107,12 @@ public class Empresa implements Serializable {
     public Empresa() {
     }
 
-    public Empresa(long idEmpresa) {
-        this.idEmpresa = idEmpresa;
+    public Empresa(long id) {
+        this.id = id;
     }
 
-    public Empresa(long idEmpresa, String nome, String cnpj, boolean ativa, BigDecimal valorEntrega, Date hrIniAtendimento, Date hrFimAtendimento) {
-        this.idEmpresa = idEmpresa;
+    public Empresa(long id, String nome, String cnpj, boolean ativa, BigDecimal valorEntrega, Date hrIniAtendimento, Date hrFimAtendimento) {
+        this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.ativa = ativa;
@@ -121,12 +121,12 @@ public class Empresa implements Serializable {
         this.hrFimAtendimento = hrFimAtendimento;
     }
 
-    public long getIdEmpresa() {
-        return idEmpresa;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdEmpresa(long idEmpresa) {
-        this.idEmpresa = idEmpresa;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -227,7 +227,26 @@ public class Empresa implements Serializable {
     
     @Override
     public String toString() {
-        return "com.aifood.entity.Empresa[ idEmpresa=" + idEmpresa + " ]";
+        return cnpj + " - " + nome;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Empresa)) {
+            return false;
+        }
+        Empresa other = (Empresa) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
     
 }

@@ -48,7 +48,7 @@
 				<p:column headerText="Excluir" style="width:80px;text-align: center">
 					<p:commandButton update=":formPessoa:tabelaPessoas"
 						icon="ui-icon-close" title="Excluir"
-						action="#{pessoaBean.excluirPessoaSelecionada}">
+						action="#{pessoaBean.excluirPessoaSelecionada}" rendered="#{!pessoaBean.getUsuarioLogado(pessoa)}">
 						<f:setPropertyActionListener value="#{pessoa}"
 							target="#{pessoaBean.pessoaSelecionada}" />
 					</p:commandButton>
@@ -68,7 +68,7 @@
 		</h:form>
 
 		<p:dialog header="Info Pessoa" widgetVar="pessoaDialog" modal="true"
-			showEffect="fade" hideEffect="fade" resizable="false" width="400px">
+			showEffect="fade" hideEffect="fade" resizable="false" width="600px">
 			<h:form id="formPessoaDlg" class="form-horizontal"
 				role="cadastroPessoa">
 				<h:messages id="msg2" infoClass="alert alert-success form-control"
@@ -77,27 +77,79 @@
 
 				<p:outputPanel id="pessoaDetail">
 					<div class="form-horizontal">
+						
 						<div class="form-group form-group-sm">
-							<h:outputLabel for="inputNomeDlg"
-								styleClass="col-xs-3 control-label" value="Nome" />
-
-							<div class="col-xs-9">
-								<h:inputText styleClass="form-control"
-									value="#{pessoaBean.pessoaSelecionada.nome}" id="inputNomeDlg"
-									required="true" requiredMessage="Nome obrigatório!"
-									maxlength="50" />
+							<h:outputLabel for="inputEmpresa"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+							<div class="col-xs-4">
+							
+								<h:selectOneMenu id="inputEmpresaEdit" styleClass="form-control" value="#{pessoaBean.pessoaSelecionada.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItems value="#{pessoaBean.listaEmpresas}" var="empresaEdit" itemLabel="#{empresaEdit.nome}" itemValue="#{empresaEdit}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+								</h:selectOneMenu>
+								
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputNome"
+									errorClass="alert-lateral alert-danger form-control" />
 							</div>
 						</div>
-
+						
 						<div class="form-group form-group-sm">
-							<h:outputLabel for="inputEmailDlg"
-								styleClass="col-xs-3 control-label" value="Email" />
-
-							<div class="col-xs-9">
+							<h:outputLabel for="inputNome"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Nome" />
+							<div class="col-xs-4">
 								<h:inputText styleClass="form-control"
-									value="#{pessoaBean.pessoaSelecionada.email}"
-									id="inputEmailDlg" required="true"
-									requiredMessage="Email obrigatório!" maxlength="50" />
+									value="#{pessoaBean.pessoaSelecionada.nome}" id="inputNomeEdit"
+									required="true" requiredMessage="Nome obrigatório!" maxlength="80" />
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputNome"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+			
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmail"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Email" />
+							<div class="col-xs-4">
+								<h:inputText styleClass="form-control"
+									value="#{pessoaBean.pessoaSelecionada.email}" id="inputEmailEdit"
+									required="true" requiredMessage="Email obrigatório!"
+									maxlength="50" />
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputEmail"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+			
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputPassword"
+								styleClass="col-xs-offset-1 col-xs-2 control-label"
+								value="Password" />
+							<div class="col-xs-4">
+								<h:inputSecret styleClass="form-control"
+									value="#{pessoaBean.pessoaSelecionada.senha}" id="inputPasswordEdit"
+									maxlength="10" required="true"
+									requiredMessage="Senha obrigatória!" />
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputPassword"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+			
+						<div class="form-group form-group-sm" >
+							<h:outputLabel for="inputPermissao"
+								styleClass="col-xs-offset-1 col-xs-2 control-label"
+								value="Tipo Permissão" rendered="#{loginBean.sessionUserAdm}" />
+							<div class="col-xs-4">
+								<h:selectOneMenu id="inputPermissaoEdit" styleClass="form-control"
+									value="#{pessoaBean.pessoaSelecionada.tipoPermissao}" rendered="#{loginBean.sessionUserAdm}">
+									<f:selectItems value="#{pessoaBean.tiposPermissao}" var="tipo"
+										itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+								</h:selectOneMenu>
 							</div>
 						</div>
 
@@ -128,6 +180,22 @@
 					fatalClass="alert alert-danger" globalOnly="true" />
 
 				<p:outputPanel id="pessoaDetailCad">
+				
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputEmpresa"
+							styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+						<div class="col-xs-4">
+							<h:selectOneMenu id="inputEmpresa" styleClass="form-control" value="#{pessoaBean.pessoaCadastro.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItem itemLabel="selecione" itemValue="#{null}"/>
+									<f:selectItems value="#{pessoaBean.listaEmpresas}" var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+							</h:selectOneMenu>							
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputNome"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
 					
 					<div class="form-group form-group-sm">
 						<h:outputLabel for="inputNome"

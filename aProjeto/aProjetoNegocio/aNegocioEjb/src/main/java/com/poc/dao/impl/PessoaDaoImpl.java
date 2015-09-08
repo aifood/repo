@@ -29,6 +29,8 @@ public class PessoaDaoImpl extends PagueCertoBaseDaoImpl<Pessoa> implements Pess
 						+ pessoa.getSenha().toUpperCase() + "%" : null);
 		query.setParameter("tipoPermissao", (pessoa.getTipoPermissao() != null) ? pessoa
 				.getTipoPermissao().getId() : null);
+		query.setParameter("empresa", (pessoa.getEmpresa() != null) ? pessoa
+				.getEmpresa().getId() : null);
 		return query;
 	}
 
