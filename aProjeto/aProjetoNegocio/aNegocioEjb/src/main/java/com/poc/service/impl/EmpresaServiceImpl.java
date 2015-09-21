@@ -34,7 +34,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 		return empresaDao.findAll(Empresa.class);
 	}
 
-	public Empresa findById(long idEmpresa) {
+	public Empresa findById(Integer idEmpresa) {
 		return empresaDao.find(Empresa.class, idEmpresa);
 	}
 
@@ -62,7 +62,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 		empresaDao.edit(empresa);
 	}
 
-	public void excluirEmpresa(long idEmpresa) {
+	public void excluirEmpresa(Integer idEmpresa) {
 		empresaDao.delete(Empresa.class, idEmpresa);
 	}
 	

@@ -7,7 +7,7 @@
 		transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		
-		<jta-data-source>jdbc/PC</jta-data-source>
+		<jta-data-source>jdbc/AiFood</jta-data-source>
 		<mapping-file>META-INF/consultas/consultas_pessoas.xml</mapping-file>
 		<class>com.poc.entity.Pessoa</class>
 		<class>com.poc.entity.Empresa</class>

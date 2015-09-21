@@ -12,7 +12,7 @@ public interface EmpresaService extends Serializable {
 	
 	List<Empresa> getAll();
 
-	Empresa findById(long idEmpresa);
+	Empresa findById(Integer idEmpresa);
 	
 	List<Empresa> findByParameters(Empresa empresa);
 
@@ -27,5 +27,5 @@ public interface EmpresaService extends Serializable {
 
 	void alterarEmpresa(Empresa empresa);
 
-	void excluirEmpresa(long idEmpresa);		
+	void excluirEmpresa(Integer idEmpresa);		
 }
