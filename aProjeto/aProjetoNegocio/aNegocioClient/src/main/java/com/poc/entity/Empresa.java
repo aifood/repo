@@ -17,7 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,12 +44,9 @@ public class Empresa implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @SequenceGenerator(name="D000_EMPRESA_IDEMPRESA_GENERATOR", sequenceName="SQ_EMPRESA",allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "D000_EMPRESA_IDEMPRESA_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id_empresa")
-    private Long id;
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
@@ -107,11 +103,11 @@ public class Empresa implements Serializable {
     public Empresa() {
     }
 
-    public Empresa(long id) {
+    public Empresa(Integer id) {
         this.id = id;
     }
 
-    public Empresa(long id, String nome, String cnpj, boolean ativa, BigDecimal valorEntrega, Date hrIniAtendimento, Date hrFimAtendimento) {
+    public Empresa(Integer id, String nome, String cnpj, boolean ativa, BigDecimal valorEntrega, Date hrIniAtendimento, Date hrFimAtendimento) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -121,11 +117,11 @@ public class Empresa implements Serializable {
         this.hrFimAtendimento = hrFimAtendimento;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

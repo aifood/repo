@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,24 +13,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
+
+/**
+ * The persistent class for the d003_usuario database table.
+ * 
+ */
 @Entity
-@Table(name = "d003_usuario")
+@Table(name="d003_usuario")
 public class Pessoa implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Basic(optional = false)
-	@NotNull
-	@SequenceGenerator(name = "D003_USUARIO_GENERATOR", sequenceName = "SQ_USUARIO", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "D003_USUARIO_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
 	private Long id;
 
@@ -51,35 +49,23 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataUltimoAcesso;
 
-	@JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa")
-	@ManyToOne(optional = false)
+	//bi-directional many-to-one association to D000Empresa
+	@ManyToOne
+	@JoinColumn(name="id_empresa")
 	private Empresa empresa;
-
+	
 	@Transient
 	private Set<LoginData> sessionLogins = new HashSet<LoginData>();
 
+	public Pessoa() {
+	}
+
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEmail() {
-		return email;
 	}
 
 	public TipoPermissao getTipoPermissao() {
@@ -93,34 +79,46 @@ public class Pessoa implements Serializable {
 			this.tipoPermissao = null;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getSenha() {
-		return senha;
+	public Date getDataUltimoAcesso() {
+		return this.dataUltimoAcesso;
 	}
 
 	public void setDataUltimoAcesso(Date dataUltimoAcesso) {
 		this.dataUltimoAcesso = dataUltimoAcesso;
 	}
 
-	public Date getDataUltimoAcesso() {
-		return dataUltimoAcesso;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setSessionLogins(Set<LoginData> sessionLogins) {
-		this.sessionLogins = sessionLogins;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSenha() {
+		return this.senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Empresa getEmpresa() {
-		return empresa;
+		return this.empresa;
 	}
 
-	public void setEmpresa(Empresa idEmpresa) {
-		this.empresa = idEmpresa;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
-
+	
 	public String getSessions() {
 		// Gerando descricao a partir das naturezas obtidas
 		StringBuffer desc = new StringBuffer("[");
