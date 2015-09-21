@@ -21,19 +21,13 @@
 	</build>
 
 	<dependencies>
-		<!-- Client Ejb -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>${project.groupId}</groupId> -->
-<!-- 			<artifactId>aNegocioClient</artifactId> -->
-<!-- 			<version>${project.version}</version> -->
-<!-- 		</dependency> -->
-		
+
+		<!-- Módulo de Negócio -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>aNegocioEjb</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
 
 		<!-- JSF libs -->
 		<dependency>

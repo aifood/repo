@@ -6,7 +6,6 @@ import javax.ejb.ApplicationException;
  * Classe utilizada para lançamento de exceções referente ao negócio das aplicações J2EE. Se refere somente ao negócio e portanto não deve ser usada para infra
  * e para tratamento de camadas.
  * 
- * @author d337277 Daniel Xavier Araújo (daniel.xavier@dataprev.gov.br)
  */
 @ApplicationException(rollback = true)
 public class PocBusinessException extends PocBaseBusinessException {

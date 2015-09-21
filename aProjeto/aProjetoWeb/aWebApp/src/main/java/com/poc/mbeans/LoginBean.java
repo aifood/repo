@@ -11,7 +11,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.poc.entity.LoginData;
@@ -25,7 +24,8 @@ import com.poc.util.SessionManager;
 @SessionScoped
 public class LoginBean extends BaseBean implements Serializable {
 
-	protected final Logger log = LogManager.getLogger(this.getClass());
+	@Inject
+	protected Logger log;
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class LoginBean extends BaseBean implements Serializable {
 			setSessionUser(pessoaLogIn);
 			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
 					.getExternalContext().getRequest();
-			SessionManager.getInstace().registerLogin(
+			SessionManager.getInstance().registerLogin(
 					request.getSession().getId(),
 					new LoginData(pessoaLogIn, pessoaLogIn.getDataUltimoAcesso(), request
 							.getSession().getId()));
@@ -64,7 +64,7 @@ public class LoginBean extends BaseBean implements Serializable {
 	public String logout() throws IOException {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
 				.getExternalContext().getRequest();
-		SessionManager.getInstace().registerLogout(req.getSession().getId());
+		SessionManager.getInstance().registerLogout(req.getSession().getId());
 		cleanSessionUser();
 
 		String s = req.getContextPath() + "/pages/login.xhtml";

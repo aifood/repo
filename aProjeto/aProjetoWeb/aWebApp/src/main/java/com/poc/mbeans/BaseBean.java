@@ -46,11 +46,11 @@ public class BaseBean implements Serializable {
 	}
 	
 	public int getUsuariosAtivos() {
-		return SessionManager.getInstace().listAllLoggedUsers().size();
+		return SessionManager.getInstance().listAllLoggedUsers().size();
 	}
 
 	public List<Pessoa> getListaUsuariosLogados() {
-		return SessionManager.getInstace().listAllLoggedUsers();
+		return SessionManager.getInstance().listAllLoggedUsers();
 	}
 	
 	/**
