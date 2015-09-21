@@ -7,8 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-import com.poc.infra.cdi.qualifiers.OracleDatabase;
-import com.poc.infra.cdi.qualifiers.PostgresDatabase;
+import com.poc.infra.cdi.qualifiers.MySqlDatabase;
 
 public class DatabaseProducer {
 
@@ -16,17 +15,17 @@ public class DatabaseProducer {
 	 * Métodos realacionados à criação de um EntityManager referente ao
 	 * perssitence unit que aponta para BD Postgres.
 	 */
-	@PersistenceUnit(unitName = "PostgresPU")
+	@PersistenceUnit(unitName = "MySqlPU")
 	EntityManagerFactory postgresEntityManagerFactory;
 
 	@Produces
 	@RequestScoped
-	@PostgresDatabase
+	@MySqlDatabase
 	public EntityManager getPostgresEntityManager() throws Exception {
 		return postgresEntityManagerFactory.createEntityManager();
 	}
 
-	public void closePostgresEntityManager(@PostgresDatabase @Disposes EntityManager entityManager) {
+	public void closePostgresEntityManager(@MySqlDatabase @Disposes EntityManager entityManager) {
 		entityManager.close();
 	}
 
@@ -35,17 +34,17 @@ public class DatabaseProducer {
 	 * perssitence unit que aponta para BD Oracle.
 	 */
 
-	@PersistenceUnit(unitName = "OraclePU")
-	EntityManagerFactory oracleEntityManagerFactory;
-
-	@Produces
-	@RequestScoped
-	@OracleDatabase
-	public EntityManager getOracleEntityManager() throws Exception {
-		return oracleEntityManagerFactory.createEntityManager();
-	}
-
-	public void closeOracleEntityManager(@OracleDatabase @Disposes EntityManager entityManager) {
-		entityManager.close();
-	}
+//	@PersistenceUnit(unitName = "OraclePU")
+//	EntityManagerFactory oracleEntityManagerFactory;
+//
+//	@Produces
+//	@RequestScoped
+//	@OracleDatabase
+//	public EntityManager getOracleEntityManager() throws Exception {
+//		return oracleEntityManagerFactory.createEntityManager();
+//	}
+//
+//	public void closeOracleEntityManager(@OracleDatabase @Disposes EntityManager entityManager) {
+//		entityManager.close();
+//	}
 }

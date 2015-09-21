@@ -3,8 +3,7 @@ package com.poc.entity;
 public enum TipoPermissao {
 
 	ADMINISTRADOR(1, "Administrador"), 
-	ADMINISTRADOR_CONTA(2, "Administrador da Conta"),	
-	USUARIO(3, "Usu·rio");
+	USUARIO(2, "Usu·rio");
 
 	/**
 	 * Identificador da enumera√ß√£o

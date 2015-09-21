@@ -12,7 +12,8 @@
 				and (:nome is NULL or upper(o.nome) like :nome)
 				and (:email is NULL or upper(o.email) like :email) 
 				and (:senha is NULL or upper(o.senha) like :senha) 
-				and (:tipoPermissao is NULL or o.tipoPermissao = :tipoPermissao) 
+				and (:tipoPermissao is NULL or o.tipoPermissao = :tipoPermissao)
+				and (:empresa is NULL or o.empresa.id = :empresa) 
 			ORDER BY o.nome 
 		</query>
 	</named-query>	

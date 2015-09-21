@@ -13,11 +13,11 @@ import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReportQuery;
 import org.eclipse.persistence.queries.ReportQueryResult;
 
-import com.poc.infra.cdi.qualifiers.PostgresDatabase;
+import com.poc.infra.cdi.qualifiers.MySqlDatabase;
 
 public abstract class PagueCertoBaseDaoImpl<E> extends AbstractBaseDao<E> implements PagueCertoBaseDao<E> {
 
-	@PostgresDatabase
+	@MySqlDatabase
 	@Inject
 	private EntityManager entityManager;
 

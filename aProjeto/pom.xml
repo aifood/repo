@@ -18,10 +18,11 @@
 		<java.version>1.7</java.version>
 		<java.ee.version>7</java.ee.version>
 		<encoding>ISO-8859-1</encoding>
-		<org.hibernate.version>4.2.0.Final</org.hibernate.version>
+		<org.hibernate.version>4.3.5.Final</org.hibernate.version>
 		
 		<!-- Deploy Glassfish -->
-		<local.glassfish.home>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</local.glassfish.home>
+	    <local.glassfish.home>C:\\java\\glassfish-4.1\\glassfish4\\glassfish</local.glassfish.home>
+<!-- 	    <local.glassfish.home>C:\\Program Files\\glassfish-4.1\\glassfish</local.glassfish.home> -->
 		<local.glassfish.user>admin</local.glassfish.user>
 		<local.glassfish.domain>domain1</local.glassfish.domain>
 		<local.glassfish.passfile>
@@ -355,27 +356,27 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>${org.hibernate.version}</version>
-				<scope>provided</scope>
+				<scope>compile</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>${org.hibernate.version}</version>
-				<scope>provided</scope>
+				<scope>compile</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>${org.hibernate.version}</version>
-				<scope>provided</scope>
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-api</artifactId>
-					</exclusion>
-				</exclusions>
+				<version>5.1.1.Final</version>
+				<scope>compile</scope>
+<!-- 				<exclusions> -->
+<!-- 					<exclusion> -->
+<!-- 						<groupId>org.slf4j</groupId> -->
+<!-- 						<artifactId>slf4j-api</artifactId> -->
+<!-- 					</exclusion> -->
+<!-- 				</exclusions> -->
 			</dependency>
 
 			<!-- Outros -->

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.poc.entity.Pessoa;
+import com.poc.entity.TipoPermissao;
 import com.poc.util.SessionManager;
 
 import static com.poc.util.ConstantesWeb.LABEL_USUARIO_SESSION;
@@ -31,6 +32,27 @@ public class BaseBean implements Serializable {
 				.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = req.getSession();
 		return ((Pessoa) session.getAttribute(LABEL_USUARIO_SESSION));
+	}
+	
+	public boolean getUsuarioLogado(Pessoa pessoa) {
+		if (getSessionUser() != null) {
+			if (pessoa.equals(getSessionUser())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isSessionUserAdm() {
+		boolean userAdmLogado = false;
+		HttpServletRequest req = (HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = req.getSession();
+		Pessoa userLogado = ((Pessoa) session.getAttribute(LABEL_USUARIO_SESSION));
+		if (userLogado != null) {
+			userAdmLogado = userLogado.getTipoPermissao().equals(TipoPermissao.ADMINISTRADOR);
+		}
+		return userAdmLogado;
 	}
 
 	protected void setSessionUser(Pessoa pessoa) {
