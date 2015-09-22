@@ -13,7 +13,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.poc.entity.Empresa;
@@ -31,9 +30,10 @@ import com.poc.util.SessionManager;
 @Transactional
 public class PessoaBean extends BaseBean implements Serializable {
 
-	protected final Logger log = LogManager.getLogger(this.getClass());
-
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	protected Logger log;
 
 	//Utilizada na view "cadastro"
 	private Pessoa pessoaCadastro = new Pessoa();
@@ -59,7 +59,7 @@ public class PessoaBean extends BaseBean implements Serializable {
 		setSessionUser(getPessoaCadastro());
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
 				.getExternalContext().getRequest();
-		SessionManager.getInstace().registerLogin(request.getSession().getId(),
+		SessionManager.getInstance().registerLogin(request.getSession().getId(),
 				new LoginData(getPessoaCadastro(), getPessoaCadastro().getDataUltimoAcesso(), request.getSession().getId()));
 
 

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.eclipse.persistence.jpa.JpaEntityManager;
@@ -14,9 +13,11 @@ import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReportQuery;
 import org.eclipse.persistence.queries.ReportQueryResult;
 
+import com.poc.infra.cdi.qualifiers.MySqlDatabase;
+
 public abstract class PagueCertoBaseDaoImpl<E> extends AbstractBaseDao<E> implements PagueCertoBaseDao<E> {
 
-//	@PersistenceContext//(unitName = "AdminSibePu")
+	@MySqlDatabase
 	@Inject
 	private EntityManager entityManager;
 

@@ -7,8 +7,6 @@ import java.util.List;
 import com.poc.entity.Pessoa;
 import com.poc.entity.TipoPermissao;
 
-
-//@Remote
 public interface PessoaService extends Serializable {
 	
 	List<Pessoa> getAll();

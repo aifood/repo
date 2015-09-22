@@ -4,32 +4,22 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//import com.poc.dao.CartaoCreditoDao;
-//import com.poc.dao.ContaBancariaDao;
 import com.poc.dao.PessoaDao;
 import com.poc.entity.Pessoa;
 import com.poc.entity.TipoPermissao;
 import com.poc.service.PessoaService;
 
-//@Stateless
 public class PessoaServiceImpl implements PessoaService {
 
 	private static final long serialVersionUID = 1L;
 
-	static Logger logger = LogManager.getLogger(PessoaServiceImpl.class);
+	@Inject
+	protected Logger log;
 
-//	@EJB
 	@Inject
 	PessoaDao pessoaDao;
-
-//	@EJB
-//	ContaBancariaDao contaBancariaDao;
-//
-//	@EJB
-//	CartaoCreditoDao cartaoCreditoDao;
 
 	public List<Pessoa> getAll() {
 		return pessoaDao.findAll(Pessoa.class);

@@ -12,8 +12,8 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
+import javax.inject.Inject;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.poc.exception.PocBaseException;
@@ -25,7 +25,8 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
 	private static final String ERROR_MSG = "errorMsg";
 
-	protected static Logger log = LogManager.getLogger(CustomExceptionHandler.class);
+	@Inject
+	protected Logger log;
 
 	private ExceptionHandler wrapped;
 

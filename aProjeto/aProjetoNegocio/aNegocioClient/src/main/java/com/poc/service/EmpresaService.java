@@ -7,7 +7,6 @@ import java.util.List;
 import com.poc.entity.Empresa;
 
 
-//@Remote
 public interface EmpresaService extends Serializable {
 	
 	List<Empresa> getAll();

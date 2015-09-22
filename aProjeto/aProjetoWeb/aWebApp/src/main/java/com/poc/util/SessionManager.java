@@ -15,7 +15,7 @@ public class SessionManager {
 	private static Map<String, LoginData> usersMap = new HashMap<String, LoginData>();
 	private static SessionManager instance = new SessionManager();
 
-	public static SessionManager getInstace() {
+	public static SessionManager getInstance() {
 		if (instance != null) {
 			instance = new SessionManager();
 		}
