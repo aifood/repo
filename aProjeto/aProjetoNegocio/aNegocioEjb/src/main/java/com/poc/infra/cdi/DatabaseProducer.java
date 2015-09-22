@@ -1,31 +1,28 @@
 package com.poc.infra.cdi;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 
 import com.poc.infra.cdi.qualifiers.MySqlDatabase;
 
+@RequestScoped
 public class DatabaseProducer {
+	
+	@PersistenceContext(unitName = "MySqlPU")
+	private EntityManager mySql_EntityManager;
 
-	/**
-	 * Métodos realacionados à criação de um EntityManager referente ao
-	 * perssitence unit que aponta para BD Postgres.
-	 */
-	@PersistenceUnit(unitName = "MySqlPU")
-	EntityManagerFactory postgresEntityManagerFactory;
-
+	@MySqlDatabase
 	@Produces
 	@RequestScoped
-	@MySqlDatabase
-	public EntityManager getPostgresEntityManager() throws Exception {
-		return postgresEntityManagerFactory.createEntityManager();
+	public EntityManager getMySqlEntityManager() {
+		return mySql_EntityManager;
 	}
 
-	public void closePostgresEntityManager(@MySqlDatabase @Disposes EntityManager entityManager) {
+	public void closePostgresEntityManager(@Disposes @Any EntityManager entityManager) {
 		entityManager.close();
 	}
 
@@ -34,17 +31,13 @@ public class DatabaseProducer {
 	 * perssitence unit que aponta para BD Oracle.
 	 */
 
-//	@PersistenceUnit(unitName = "OraclePU")
-//	EntityManagerFactory oracleEntityManagerFactory;
+//	@PersistenceContext(unitName = "OraclePU")
+//	private EntityManager oracle_entityManager;
 //
+//	@OracleDatabase
 //	@Produces
 //	@RequestScoped
-//	@OracleDatabase
-//	public EntityManager getOracleEntityManager() throws Exception {
-//		return oracleEntityManagerFactory.createEntityManager();
-//	}
-//
-//	public void closeOracleEntityManager(@OracleDatabase @Disposes EntityManager entityManager) {
-//		entityManager.close();
+//	public EntityManager getOracleEntityManager() {
+//		return oracle_entityManager;
 //	}
 }

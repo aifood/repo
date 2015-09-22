@@ -30,21 +30,30 @@
 
 	<!-- Exemplo de Persistence Unit com Hibernate apontando pra Oracle -->
 <!-- 	<persistence-unit name="OraclePU"> -->
-<!-- 		<provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+<!-- 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 
+<!-- 		<jta-data-source>jdbc/AiFood</jta-data-source> -->
+		
 <!-- 		<properties> -->
- 			<!-- Propriedades de conexão --> 
-<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/databasename" /> -->
-<!-- 			<property name="javax.persistence.jdbc.user" value="user" /> -->
-<!-- 			<property name="javax.persistence.jdbc.password" value="password" /> -->
-<!-- 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
+<!-- 			<property name="hibernate.transaction.jta.platform" -->
+<!-- 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" /> -->
+<!-- 				<property name="hibernate.show_sql" value="false"/>  -->
+			<!-- Propriedades de conexão (Geralmente no app. server) -->
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/databasename" 
+				/> -->
+			<!-- <property name="javax.persistence.jdbc.user" value="user" /> -->
+			<!-- <property name="javax.persistence.jdbc.password" value="password" 
+				/> -->
+			<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" 
+				/> -->
 
-<!-- 			<property name="javax.persistence.schema-generation.database.action" -->
-<!-- 				value="drop-and-create" /> -->
-<!-- 			<property name="javax.persistence.schema-generation.create-source" -->
-<!-- 				value="metadata" /> -->
-<!-- 			<property name="javax.persistence.sql-load-script-source" -->
-<!-- 				value="META-INF/sql/dados-iniciais.sql" /> -->
+			<!-- <property name="javax.persistence.schema-generation.database.action" -->
+			<!-- value="drop-and-create" /> -->
+			<!-- <property name="javax.persistence.schema-generation.create-source" -->
+			<!-- value="metadata" /> -->
+			<!-- <property name="javax.persistence.sql-load-script-source" -->
+			<!-- value="META-INF/sql/dados-iniciais.sql" /> -->
 
 <!-- 			<property name="hibernate.show_sql" value="true" /> -->
 <!-- 			<property name="hibernate.format_sql" value="true" /> -->
