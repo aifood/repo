@@ -14,4 +14,8 @@ public class ApplicationResources {
 	public static final String EMPRESA_SUCESSO_ALTERACAO = "empresa.sucesso.alteracao";
 	public static final String EMPRESA_SUCESSO_REMOCAO = "empresa.sucesso.remocao";
 	
+	public static final String CLIENTE_SUCESSO_INSERCAO = "cliente.sucesso.insercao";
+	public static final String CLIENTE_SUCESSO_ALTERACAO = "cliente.sucesso.alteracao";
+	public static final String CLIENTE_SUCESSO_REMOCAO = "cliente.sucesso.remocao";
+	
 }

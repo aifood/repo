@@ -8,6 +8,7 @@
 
 		<jta-data-source>jdbc/AiFood</jta-data-source>
 		<mapping-file>META-INF/consultas/consultas_pessoas.xml</mapping-file>
+		<mapping-file>META-INF/consultas/consultas_clientes.xml</mapping-file>
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/pages/layout/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="headerLayout">
+		<ui:include src="/pages/fragmentos/menuPadrao.xhtml">
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="headerTitle">Clientes</ui:define>
+
+	<ui:define name="centerLayout">
+		<p:growl id="growl" showDetail="true" />
+
+		<h:messages id="msg1" infoClass="alert alert-success form-control"
+			warnClass="alert alert-warning" errorClass="alert alert-danger"
+			fatalClass="alert alert-danger" globalOnly="true" />
+
+		<h:form id="formCliente" class="form-horizontal" role="cadastroCliente">
+
+			<p:dataTable id="tabelaClientes" var="cliente" 
+				value="#{clienteBean.listaClientes}" rows="10" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				
+				<p:column headerText="E-MAIL">
+					<h:outputText value="#{cliente.email}" />	
+				</p:column>
+				 
+				<p:column headerText="Editar" style="width:80px;text-align: center">
+					<p:commandButton update=":formClienteDlg:clienteDetail"
+						oncomplete="PF('clienteDialog').show()" icon="ui-icon-document"
+						title="Editar">
+						<f:setPropertyActionListener value="#{cliente}"
+							target="#{clienteBean.clienteSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Excluir" style="width:80px;text-align: center">
+					<p:commandButton update=":formCliente:tabelaClientes"
+						icon="ui-icon-close" title="Excluir"
+						action="#{clienteBean.excluirClienteSelecionada}">
+						<f:setPropertyActionListener value="#{cliente}"
+							target="#{clienteBean.clienteSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			
+			<div class="form-group">
+				<div class="col-xs-offset-5 col-xs-2">
+					<p:commandButton styleClass="btn btn-primary btn-block  btn-sm" update=":cadastroClienteForm:clienteDetailCad"
+						oncomplete="PF('clienteDialogCad').show()" value="Cadastrar"
+						title="Cadastrar">						
+					</p:commandButton>
+				</div>				
+			</div>
+			
+		</h:form>
+
+		<p:dialog header="Info Cliente" widgetVar="clienteDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="400px">
+			<h:form id="formClienteDlg" class="form-horizontal"
+				role="cadastroCliente">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="clienteDetail">
+					<div class="form-horizontal">
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmpresa"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+							<div class="col-xs-4">
+							
+								<h:selectOneMenu id="inputEmpresaEdit" styleClass="form-control" value="#{clienteBean.clienteSelecionada.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItems value="#{clienteBean.listaEmpresas}" var="empresaEdit" itemLabel="#{empresaEdit.nome}" itemValue="#{empresaEdit}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+								</h:selectOneMenu>
+								
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputNome"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+					
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputNomeDlg"
+								styleClass="col-xs-3 control-label" value="Nome" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.nome}" id="inputNomeDlg"
+									required="true" requiredMessage="Nome obrigatório!"
+									maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmail"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Email" />
+							<div class="col-xs-4">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.email}" id="inputEmailEdit"
+									required="true" requiredMessage="Email obrigatório!"
+									maxlength="50" />
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputEmail"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputTelefoneDlg"
+								styleClass="col-xs-3 control-label" value="Telefone" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.telefone}"
+									id="inputTelefoneDlg" maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputRuaDlg"
+								styleClass="col-xs-3 control-label" value="Rua" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.rua}"
+									id="inputRuaDlg" maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputNumeroDlg"
+								styleClass="col-xs-3 control-label" value="Numero" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.numero}"
+									id="inputNumeroDlg" maxlength="10" />
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputBairroDlg"
+								styleClass="col-xs-3 control-label" value="Bairro" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.bairro}"
+									id="inputBairroDlg" maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputComplementoDlg"
+								styleClass="col-xs-3 control-label" value="Complemento" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.complemento}"
+									id="inputComplementoDlg" maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputCidadeDlg"
+								styleClass="col-xs-3 control-label" value="Cidade" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.cidade}"
+									id="inputCidadeDlg" maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEstadoDlg"
+								styleClass="col-xs-3 control-label" value="Estado" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteSelecionada.estado}"
+									id="inputEstadoDlg" maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<div class="col-xs-offset-2 col-xs-4">
+								<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+									value="Salvar" action="#{clienteBean.alterarClienteSelecionada}"
+									update=":formCliente:tabelaClientes :growl"
+									oncomplete="PF('clienteDialog').hide()">
+								</p:commandButton>
+							</div>
+							<div class="col-xs-4">
+								<h:button styleClass="btn btn-success btn-block btn-sm"
+									value="Cancelar" />
+							</div>
+						</div>
+					</div>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Cadastro Cliente" widgetVar="clienteDialogCad" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="600px">
+			<h:form id="cadastroClienteForm" class="form-horizontal"
+				role="cadastroCliente">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="clienteDetailCad">
+				
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputEmpresa"
+							styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+						<div class="col-xs-4">
+							<h:selectOneMenu id="inputEmpresa" styleClass="form-control" value="#{clienteBean.clienteCadastro.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItem itemLabel="selecione" itemValue="#{null}"/>
+									<f:selectItems value="#{clienteBean.listaEmpresas}" var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+							</h:selectOneMenu>							
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputNome"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputNomeDlg"
+							styleClass="col-xs-3 control-label" value="Nome" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.nome}" id="inputNomeDlg"
+								required="true" requiredMessage="Nome obrigatório!"
+								maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmailDlg"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Email" />
+							<div class="col-xs-4">
+								<h:inputText styleClass="form-control"
+									value="#{clienteBean.clienteCadastro.email}" id="inputEmailDlg"
+									required="true" requiredMessage="Email obrigatório!"
+									maxlength="50" />
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputEmailDlg"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputTelefoneDlg"
+							styleClass="col-xs-3 control-label" value="Telefone" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.telefone}"
+								id="inputTelefoneDlg" maxlength="50" />
+						</div>
+					</div>
+
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputRuaDlg"
+							styleClass="col-xs-3 control-label" value="Rua" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.rua}"
+								id="inputRuaDlg" maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputNumeroDlg"
+							styleClass="col-xs-3 control-label" value="Numero" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.numero}"
+								id="inputNumeroDlg" maxlength="10" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputBairroDlg"
+							styleClass="col-xs-3 control-label" value="Bairro" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.bairro}"
+								id="inputBairroDlg" maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputComplementoDlg"
+							styleClass="col-xs-3 control-label" value="Complemento" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.complemento}"
+								id="inputComplementoDlg" maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputCidadeDlg"
+							styleClass="col-xs-3 control-label" value="Cidade" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.cidade}"
+								id="inputCidadeDlg" maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputEstadoDlg"
+							styleClass="col-xs-3 control-label" value="Estado" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{clienteBean.clienteCadastro.estado}"
+								id="inputEstadoDlg" maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<div class="col-xs-offset-2 col-xs-4">
+							<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+								value="Salvar" action="#{clienteBean.cadastrarCliente}"
+								update=":formCliente:tabelaClientes :growl"
+								oncomplete="PF('clienteDialogCad').hide()">
+							</p:commandButton>
+						</div>
+						<div class="col-xs-4">
+							<h:button styleClass="btn btn-success btn-block btn-sm"
+								value="Cancelar" />
+						</div>
+					</div>
+					
+				</p:outputPanel>
+				
+			</h:form>
+		</p:dialog>		
+	</ui:define>
+
+</ui:composition>
