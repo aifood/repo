@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/pages/layout/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="headerLayout">
+		<ui:include src="/pages/fragmentos/menuPadrao.xhtml">
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="headerTitle">FormaPgtos</ui:define>
+
+	<ui:define name="centerLayout">
+		<p:growl id="growl" showDetail="true" />
+
+		<h:messages id="msg1" infoClass="alert alert-success form-control"
+			warnClass="alert alert-warning" errorClass="alert alert-danger"
+			fatalClass="alert alert-danger" globalOnly="true" />
+
+		<h:form id="formFormaPgto" class="form-horizontal" role="cadastroFormaPgto">
+
+			<p:dataTable id="tabelaFormaPgtos" var="formaPgto" 
+				value="#{formaPgtoBean.listaFormaPgtos}" rows="10" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				
+				<p:column headerText="Empresa" rendered="#{loginBean.sessionUserAdm}">
+					<h:outputText value="#{formaPgto.empresa.nome}" />	
+				</p:column>
+				
+				<p:column headerText="ID">
+					<h:outputText value="#{formaPgto.id}" />	
+				</p:column>
+
+				<p:column headerText="Descricao">
+					<h:outputText value="#{formaPgto.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Editar" style="width:80px;text-align: center">
+					<p:commandButton update=":formFormaPgtoDlg:formaPgtoDetail"
+						oncomplete="PF('formaPgtoDialog').show()" icon="ui-icon-document"
+						title="Editar">
+						<f:setPropertyActionListener value="#{formaPgto}"
+							target="#{formaPgtoBean.formaPgtoSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Excluir" style="width:80px;text-align: center">
+					<p:commandButton update=":formFormaPgto:tabelaFormaPgtos"
+						icon="ui-icon-close" title="Excluir"
+						action="#{formaPgtoBean.excluirFormaPgtoSelecionada}">
+						<f:setPropertyActionListener value="#{formaPgto}"
+							target="#{formaPgtoBean.formaPgtoSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			
+			<div class="form-group">
+				<div class="col-xs-offset-5 col-xs-2">
+					<p:commandButton styleClass="btn btn-primary btn-block  btn-sm" update=":cadastroFormaPgtoForm:formaPgtoDetailCad"
+						oncomplete="PF('formaPgtoDialogCad').show()" value="Cadastrar"
+						title="Cadastrar">						
+					</p:commandButton>
+				</div>				
+			</div>
+			
+		</h:form>
+
+		<p:dialog header="Info FormaPgto" widgetVar="formaPgtoDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="400px">
+			<h:form id="formFormaPgtoDlg" class="form-horizontal"
+				role="cadastroFormaPgto">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="formaPgtoDetail">
+					<div class="form-horizontal">
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmpresa"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+							<div class="col-xs-4">
+							
+								<h:selectOneMenu id="inputEmpresaEdit" styleClass="form-control" value="#{formaPgtoBean.formaPgtoSelecionada.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItems value="#{formaPgtoBean.listaEmpresas}" var="empresaEdit" itemLabel="#{empresaEdit.nome}" itemValue="#{empresaEdit}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+								</h:selectOneMenu>
+								
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputDescricao"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+					
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputDescricaoDlg"
+								styleClass="col-xs-3 control-label" value="Descricao" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{formaPgtoBean.formaPgtoSelecionada.descricao}" id="inputDescricaoDlg"
+									required="true" requiredMessage="Descricao obrigatório!"
+									maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<div class="col-xs-offset-2 col-xs-4">
+								<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+									value="Salvar" action="#{formaPgtoBean.alterarFormaPgtoSelecionada}"
+									update=":formFormaPgto:tabelaFormaPgtos :growl"
+									oncomplete="PF('formaPgtoDialog').hide()">
+								</p:commandButton>
+							</div>
+							<div class="col-xs-4">
+								<h:button styleClass="btn btn-success btn-block btn-sm"
+									value="Cancelar" />
+							</div>
+						</div>
+					</div>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Cadastro FormaPgto" widgetVar="formaPgtoDialogCad" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="600px">
+			<h:form id="cadastroFormaPgtoForm" class="form-horizontal"
+				role="cadastroFormaPgto">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="formaPgtoDetailCad">
+				
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputEmpresa"
+							styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+						<div class="col-xs-4">
+							<h:selectOneMenu id="inputEmpresa" styleClass="form-control" value="#{formaPgtoBean.formaPgtoCadastro.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItem itemLabel="selecione" itemValue="#{null}"/>
+									<f:selectItems value="#{formaPgtoBean.listaEmpresas}" var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+							</h:selectOneMenu>							
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputDescricao"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputDescricaoDlg"
+							styleClass="col-xs-3 control-label" value="Descricao" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{formaPgtoBean.formaPgtoCadastro.descricao}" id="inputDescricaoDlg"
+								required="true" requiredMessage="Descricao obrigatório!"
+								maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<div class="col-xs-offset-2 col-xs-4">
+							<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+								value="Salvar" action="#{formaPgtoBean.cadastrarFormaPgto}"
+								update=":formFormaPgto:tabelaFormaPgtos :growl"
+								oncomplete="PF('formaPgtoDialogCad').hide()">
+							</p:commandButton>
+						</div>
+						<div class="col-xs-4">
+							<h:button styleClass="btn btn-success btn-block btn-sm"
+								value="Cancelar" />
+						</div>
+					</div>
+					
+				</p:outputPanel>
+				
+			</h:form>
+		</p:dialog>		
+	</ui:define>
+
+</ui:composition>

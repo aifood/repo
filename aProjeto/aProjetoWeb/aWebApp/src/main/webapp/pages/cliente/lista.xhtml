@@ -27,6 +27,10 @@
 				value="#{clienteBean.listaClientes}" rows="10" paginator="true" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
+				
+				<p:column headerText="Empresa" rendered="#{loginBean.sessionUserAdm}">
+					<h:outputText value="#{cliente.empresa.nome}" />	
+				</p:column>
 
 				<p:column headerText="Nome">
 					<h:outputText value="#{cliente.nome}" />

@@ -6,8 +6,6 @@
 package com.poc.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -71,7 +69,7 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(Integer id, String nome, String cnpj, boolean ativa, BigDecimal valorEntrega, Date hrIniAtendimento, Date hrFimAtendimento) {
+    public Cliente(Integer id, String nome) {
         this.id = id;
         this.nome = nome;        
     }
