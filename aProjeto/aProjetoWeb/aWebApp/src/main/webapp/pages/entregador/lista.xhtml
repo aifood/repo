@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/pages/layout/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="headerLayout">
+		<ui:include src="/pages/fragmentos/menuPadrao.xhtml">
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="headerTitle">Entregadores</ui:define>
+
+	<ui:define name="centerLayout">
+		<p:growl id="growl" showDetail="true" />
+
+		<h:messages id="msg1" infoClass="alert alert-success form-control"
+			warnClass="alert alert-warning" errorClass="alert alert-danger"
+			fatalClass="alert alert-danger" globalOnly="true" />
+
+		<h:form id="formEntregador" class="form-horizontal" role="cadastroEntregador">
+
+			<p:dataTable id="tabelaEntregadors" var="entregador" 
+				value="#{entregadorBean.listaEntregadors}" rows="10" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				
+				<p:column headerText="Empresa" rendered="#{loginBean.sessionUserAdm}">
+					<h:outputText value="#{entregador.empresa.nome}" />	
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{entregador.nome}" />
+				</p:column>
+				
+				<p:column headerText="Telefone">
+					<h:outputText value="#{entregador.telefone}" />	
+				</p:column>
+				 
+				<p:column headerText="Editar" style="width:80px;text-align: center">
+					<p:commandButton update=":formEntregadorDlg:entregadorDetail"
+						oncomplete="PF('entregadorDialog').show()" icon="ui-icon-document"
+						title="Editar">
+						<f:setPropertyActionListener value="#{entregador}"
+							target="#{entregadorBean.entregadorSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Excluir" style="width:80px;text-align: center">
+					<p:commandButton update=":formEntregador:tabelaEntregadors"
+						icon="ui-icon-close" title="Excluir"
+						action="#{entregadorBean.excluirEntregadorSelecionada}">
+						<f:setPropertyActionListener value="#{entregador}"
+							target="#{entregadorBean.entregadorSelecionada}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			
+			<div class="form-group">
+				<div class="col-xs-offset-5 col-xs-2">
+					<p:commandButton styleClass="btn btn-primary btn-block  btn-sm" update=":cadastroEntregadorForm:entregadorDetailCad"
+						oncomplete="PF('entregadorDialogCad').show()" value="Cadastrar"
+						title="Cadastrar">						
+					</p:commandButton>
+				</div>				
+			</div>
+			
+		</h:form>
+
+		<p:dialog header="Info Entregador" widgetVar="entregadorDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="400px">
+			<h:form id="formEntregadorDlg" class="form-horizontal"
+				role="cadastroEntregador">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="entregadorDetail">
+					<div class="form-horizontal">
+						
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputEmpresa"
+								styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+							<div class="col-xs-4">
+							
+								<h:selectOneMenu id="inputEmpresaEdit" styleClass="form-control" value="#{entregadorBean.entregadorSelecionada.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItems value="#{entregadorBean.listaEmpresas}" var="empresaEdit" itemLabel="#{empresaEdit.nome}" itemValue="#{empresaEdit}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+								</h:selectOneMenu>
+								
+							</div>
+							<div class="col-xs-5">
+								<h:message for="inputNome"
+									errorClass="alert-lateral alert-danger form-control" />
+							</div>
+						</div>
+					
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputNomeDlg"
+								styleClass="col-xs-3 control-label" value="Nome" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{entregadorBean.entregadorSelecionada.nome}" id="inputNomeDlg"
+									required="true" requiredMessage="Nome obrigatório!"
+									maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<h:outputLabel for="inputTelefoneDlg"
+								styleClass="col-xs-3 control-label" value="Telefone" />
+
+							<div class="col-xs-9">
+								<h:inputText styleClass="form-control"
+									value="#{entregadorBean.entregadorSelecionada.telefone}"
+									id="inputTelefoneDlg" maxlength="50" />
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm">
+							<div class="col-xs-offset-2 col-xs-4">
+								<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+									value="Salvar" action="#{entregadorBean.alterarEntregadorSelecionada}"
+									update=":formEntregador:tabelaEntregadors :growl"
+									oncomplete="PF('entregadorDialog').hide()">
+								</p:commandButton>
+							</div>
+							<div class="col-xs-4">
+								<h:button styleClass="btn btn-success btn-block btn-sm"
+									value="Cancelar" />
+							</div>
+						</div>
+					</div>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Cadastro Entregador" widgetVar="entregadorDialogCad" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="600px">
+			<h:form id="cadastroEntregadorForm" class="form-horizontal"
+				role="cadastroEntregador">
+				<h:messages id="msg2" infoClass="alert alert-success form-control"
+					warnClass="alert alert-warning" errorClass="alert alert-danger"
+					fatalClass="alert alert-danger" globalOnly="true" />
+
+				<p:outputPanel id="entregadorDetailCad">
+				
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputEmpresa"
+							styleClass="col-xs-offset-1 col-xs-2 control-label" value="Empresa" rendered="#{loginBean.sessionUserAdm}" />
+						<div class="col-xs-4">
+							<h:selectOneMenu id="inputEmpresa" styleClass="form-control" value="#{entregadorBean.entregadorCadastro.empresa}" rendered="#{loginBean.sessionUserAdm}">
+								    <f:selectItem itemLabel="selecione" itemValue="#{null}"/>
+									<f:selectItems value="#{entregadorBean.listaEmpresas}" var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}"/>
+									<f:converter converterId="ListIndexConverter"/>													
+							</h:selectOneMenu>							
+						</div>
+						<div class="col-xs-5">
+							<h:message for="inputNome"
+								errorClass="alert-lateral alert-danger form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputNomeDlg"
+							styleClass="col-xs-3 control-label" value="Nome" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{entregadorBean.entregadorCadastro.nome}" id="inputNomeDlg"
+								required="true" requiredMessage="Nome obrigatório!"
+								maxlength="50" />
+						</div>
+					</div>
+					
+					<div class="form-group form-group-sm">
+						<h:outputLabel for="inputTelefoneDlg"
+							styleClass="col-xs-3 control-label" value="Telefone" />
+
+						<div class="col-xs-9">
+							<h:inputText styleClass="form-control"
+								value="#{entregadorBean.entregadorCadastro.telefone}"
+								id="inputTelefoneDlg" maxlength="50" />
+						</div>
+					</div>
+
+					<div class="form-group form-group-sm">
+						<div class="col-xs-offset-2 col-xs-4">
+							<p:commandButton styleClass="btn btn-primary btn-block  btn-sm"
+								value="Salvar" action="#{entregadorBean.cadastrarEntregador}"
+								update=":formEntregador:tabelaEntregadors :growl"
+								oncomplete="PF('entregadorDialogCad').hide()">
+							</p:commandButton>
+						</div>
+						<div class="col-xs-4">
+							<h:button styleClass="btn btn-success btn-block btn-sm"
+								value="Cancelar" />
+						</div>
+					</div>
+					
+				</p:outputPanel>
+				
+			</h:form>
+		</p:dialog>		
+	</ui:define>
+
+</ui:composition>
