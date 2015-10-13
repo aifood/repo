@@ -34,15 +34,6 @@ public class BaseBean implements Serializable {
 		return ((Pessoa) session.getAttribute(LABEL_USUARIO_SESSION));
 	}
 	
-	public boolean getUsuarioLogado(Pessoa pessoa) {
-		if (getSessionUser() != null) {
-			if (pessoa.equals(getSessionUser())) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	public boolean isSessionUserAdm() {
 		boolean userAdmLogado = false;
 		HttpServletRequest req = (HttpServletRequest) FacesContext

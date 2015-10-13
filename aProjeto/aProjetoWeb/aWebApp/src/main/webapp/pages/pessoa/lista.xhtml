@@ -48,7 +48,7 @@
 				<p:column headerText="Excluir" style="width:80px;text-align: center">
 					<p:commandButton update=":formPessoa:tabelaPessoas"
 						icon="ui-icon-close" title="Excluir"
-						action="#{pessoaBean.excluirPessoaSelecionada}" rendered="#{!pessoaBean.getUsuarioLogado(pessoa)}">
+						action="#{pessoaBean.excluirPessoaSelecionada}" rendered="#{pessoaBean.isExlusaoHabilitada(pessoa)}">
 						<f:setPropertyActionListener value="#{pessoa}"
 							target="#{pessoaBean.pessoaSelecionada}" />
 					</p:commandButton>

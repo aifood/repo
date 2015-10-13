@@ -118,6 +118,15 @@ public class PessoaBean extends BaseBean implements Serializable {
 	public List<TipoPermissao> getTiposPermissao() {
 		return Arrays.asList(TipoPermissao.values());
 	}
+	
+	public boolean isExlusaoHabilitada(Pessoa pessoa) {
+		if (getSessionUser() != null) {
+			if (pessoa.equals(getSessionUser())) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	// Get & Set
 	public Pessoa getPessoaCadastro() {
