@@ -12,6 +12,7 @@
 		<mapping-file>META-INF/consultas/consultas_forma_pgto.xml</mapping-file>
 		<mapping-file>META-INF/consultas/consultas_entregadores.xml</mapping-file>
 		<mapping-file>META-INF/consultas/consultas_produto.xml</mapping-file>
+		<mapping-file>META-INF/consultas/consultas_pedido.xml</mapping-file>
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 

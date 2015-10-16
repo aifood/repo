@@ -16,49 +16,45 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
  * @author cicero.barreto
  */
 @Entity
-@Table(name = "d006_produto")
-public class Produto implements Serializable {
+@Table(name = "d007_pedido")
+public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id_produto")
+    @Column(name = "id_item_pedido")
     private Integer id;
     
-    @Column(name = "nome")
-    private String nome;
+    @Column(name = "qtd_item")
+    private Integer qtdItem = 1;
     
-    @Column(name = "descricao")
-	private String descricao;
+    @Column(name = "valor_item")
+    private BigDecimal valorItem;
     
-    @Column(name = "ativo")
-    private boolean disponivel;
-    
-    @Column(name = "valor")
-    private BigDecimal valor;
-    
-    //bi-directional many-to-one association to D000Empresa
+    @ManyToOne
+	@JoinColumn(name="id_pedido")
+	private Pedido pedido;
+	
 	@ManyToOne
-	@JoinColumn(name="id_empresa")
-	private Empresa empresa;
-
-    public Produto() {
+	@JoinColumn(name="id_produto")
+	private Produto produto;
+	
+    public ItemPedido() {
     }
 
-    public Produto(Integer id) {
+    public ItemPedido(Integer id) {
         this.id = id;
     }
 
-    public Produto(Integer id, String nome, BigDecimal valor) {
-        this.id = id;
-        this.nome = nome;
-        this.valor = valor;
+    public ItemPedido(Integer id, String descricao) {
+        this.id = id;                
     }
 
     public Integer getId() {
@@ -68,45 +64,40 @@ public class Produto implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-		return descricao;
+    
+	public Integer getQtdItem() {
+		return qtdItem;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setQtdItem(Integer qtdItem) {
+		this.qtdItem = qtdItem;
 	}
 
-	public boolean getDisponivel() {
-		return disponivel;
+	public BigDecimal getValorItem() {
+		return valorItem;
 	}
 
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
+	public void setValorItem(BigDecimal valorItem) {
+		this.valorItem = valorItem;
 	}
 
-	public BigDecimal getValor() {
-		return valor;
+	public Pedido getPedido() {
+		return pedido;
 	}
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override
-    public String toString() {
-        return nome;
-    }
-    
-    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -115,21 +106,23 @@ public class Produto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Produto)) {
+        if (!(object instanceof ItemPedido)) {
             return false;
         }
-        Produto other = (Produto) object;
+        ItemPedido other = (ItemPedido) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
-
-	public Empresa getEmpresa() {
-		return empresa;
+    
+    @Transient
+	public BigDecimal getValorTotal() {
+		return this.getValorItem().multiply(new BigDecimal(this.getQtdItem()));
 	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	
+	@Transient
+	public boolean isProdutoAssociado() {
+		return this.getProduto() != null && this.getProduto().getId() != null;
 	}
 }

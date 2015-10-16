@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="4" style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
+		<p:outputLabel value="Número" rendered="#{pedidoBean.pedidoCadastro.existente}" />
+		<h:outputText value="#{pedidoBean.pedidoCadastro.id}" rendered="#{pedidoBean.pedidoCadastro.existente}" />
+		 
+		<p:outputLabel value="Data de criação" rendered="#{pedidoBean.pedidoCadastro.existente}" />
+        <h:outputText value="#{pedidoBean.pedidoCadastro.dataPedido}" rendered="#{pedidoBean.pedidoCadastro.existente}">
+        	<f:convertDateTime pattern="dd/MM/yyyy" />
+        </h:outputText>
+        
+        <p:outputLabel value="Status"/>
+        <h:outputText value="#{pedidoBean.pedidoCadastro.situacao.descricao}" />
+        
+        <p:outputLabel value="Cliente" for="cliente"/>
+        <p:autoComplete id="cliente" size="40" dropdown="true" 
+        	value="#{pedidoBean.pedidoCadastro.cliente}" completeMethod="#{pedidoBean.completarCliente}"
+        	var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" forceSelection="true">
+        <p:ajax event="itemSelect" listener="#{pedidoBean.handleSelect}" update="cadastroPedidoForm" /> 
+        </p:autoComplete>
+        
+        <p:outputLabel value="Forma de pagamento" for="formaPagamento"/>
+        <p:selectOneMenu id="formaPagamento" value="#{pedidoBean.pedidoCadastro.formaPgto}">
+            <f:selectItem itemLabel="Selecione" />
+            <f:selectItems value="#{pedidoBean.formasPagamento}" var="formaPagamento"
+            	itemValue="#{formaPagamento}" itemLabel="#{formaPagamento.descricao}" />
+            <f:converter converterId="ListIndexConverter" />
+        </p:selectOneMenu>
+        
+        <p:outputLabel value="Total do pedido" style="font-weight: bold; font-size: 1.1em"/>
+        <h:outputText value="#{pedidoBean.pedidoCadastro.valorTotal}" 
+        	style="font-weight: bold; font-size: 1.1em" id="totalPedido">
+        	<f:convertNumber type="currency" />
+        </h:outputText>
+        
+	</p:panelGrid>
+  	
+</ui:composition>
